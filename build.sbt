@@ -7,7 +7,10 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 resolvers += Resolver.sonatypeRepo("snapshots")
 
 scalaVersion := "2.12.2"
-
+libraryDependencies ++= Seq(
+  jdbc,
+  "com.typesafe.play" %% "anorm" % "2.5.3"
+)
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % Test
 libraryDependencies += "com.h2database" % "h2" % "1.4.194"
