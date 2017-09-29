@@ -12,22 +12,22 @@ import slick.jdbc.MySQLProfile.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import repository.db.table.UserTableDef
 import slick.basic.DatabaseConfig
+import slick.dbio.DBIOAction
 
 /**
   * Created by dev-00 on 9/28/17.
   */
-case class User(id: Long, firstName: String, lastName: String, mobile: Long, email: String )
+case class User(id: Option[Long], firstName: String, lastName: String, mobile: Long, email: String )
 
-case class UserFormData(firstName: String, lastName: String, mobile: Long, email: String)
+case class UserFormData(firstName: String, email: String, password: String)
 
 object UserForm {
 
   val form = Form(
     mapping(
       "firstName" -> nonEmptyText,
-      "lastName" -> nonEmptyText,
-      "mobile" -> longNumber,
-      "email" -> email
+      "email" -> email,
+      "password" -> nonEmptyText
     )(UserFormData.apply)(UserFormData.unapply)
   )
 }
@@ -52,6 +52,10 @@ object Users {
 
   def userList: Future[Seq[User]] = {
     dbConfig.db.run(users.result)
+  }
+
+  def init() = {
+    dbConfig.db.run(DBIOAction.seq(users.schema.create))
   }
 }
 

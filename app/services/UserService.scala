@@ -21,5 +21,9 @@ object UserService {
     Users.get(id)
   }
 
+  def init(): Unit ={
+    Users.init()
+  }
+
   def listUsers: Future[Seq[User]] = Users.userList
 }

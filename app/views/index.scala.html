@@ -1,4 +1,5 @@
-@(action: String)
+@import model.UserFormData
+@(userForm:Form[UserFormData])
 <html>
     <head>
         <title></title>
@@ -19,10 +20,11 @@
                     <li><a href="#">გვერდის შესახებ</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li id="sign_up_btn"><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li id="login_btn"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </ul>
             </div>
+
         </nav>
         <section class="search_container">
             <div class="container">
@@ -42,10 +44,60 @@
                 </div>
             </div>
         </section>
-        <div class=".main_content_container">
-            @action
-        </div>
+
+        <div class=".main_content_container"></div>
+
         <button class="fab fab-calm"><i class="fa fa-home"></i>+</button>
+
+            <!-- Modal content -->
+        <div id="myModal" class="modal">
+
+        <div class="modal-content">
+            <div class="modal-body">
+
+                @*registration dialog*@
+            <div id="reg_dialog_container">
+                <form class="form-horizontal">
+                    <fieldset>
+                            <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">Name</label>
+                            <div class="col-md-5">
+                                <input id="name" name="name" type="text" placeholder="Enter your name" class="form-control input-md" required="">
+                            </div>
+                        </div>
+
+                            <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="email">Email</label>
+                            <div class="col-md-5">
+                                <input id="email" name="email" type="text" placeholder="Enter your email id" class="form-control input-md" required="">
+                            </div>
+                        </div>
+                            <!-- Password input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="password">Password</label>
+                            <div class="col-md-5">
+                                <input id="password" name="password" type="password" placeholder="Enter a password" class="form-control input-md" required="">
+
+                            </div>
+                        </div>
+                            <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="signup"></label>
+                            <div class="col-md-4">
+                                <button id="signup" type="submit" name="signup" class="btn btn-success">Sign Up</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+
+            </div>
+            </div>
+        </div>
+
+        </div>
 
     </body>
 
