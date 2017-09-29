@@ -3,10 +3,13 @@ package controllers
 import java.util.Calendar
 import javax.inject._
 
-import model.{User, UserForm}
+import model.User
 import play.api.mvc._
 import services.UserService
 
+import scala.util.{Failure, Success}
+import scala.concurrent._
+import ExecutionContext.Implicits.global
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
@@ -16,8 +19,14 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
 
   def index = Action {
     UserService.init()
+    val u1 = User(null, "vaxo", "gasit", 593646, "jkh")
 //    val users = UserService.addUser(User(null,"Kotlin","mgebrishvili",591123456,"jemo@gmail.com")).value
-    Ok(views.html.index.render(UserForm.form))
+    val usrs = Seq[User](u1,u1,u1,u1,u1,u1,u1,u1,u1,u1)
+    UserService.listUsers.map(it => it) onComplete {
+      case Success(result) => Ok(views.html.index.render(result,""))
+      case Failure(t) =>
+    }
+    Ok(views.html.index.render(usrs,""))
   }
 
   def about = Action {

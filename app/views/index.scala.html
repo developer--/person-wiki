@@ -1,5 +1,6 @@
-@import model.UserFormData
-@(userForm:Form[UserFormData])
+@import model.User
+
+@(users: Seq[User] = null, message: String = "")
 <html>
     <head>
         <title></title>
@@ -45,7 +46,17 @@
             </div>
         </section>
 
-        <div class=".main_content_container"></div>
+        <div class="main_content_container col-md-2">
+            @for(user <- users){
+                <div class="card">
+                    <img class="card_img" src="@routes.Assets.versioned("images/img_avatar.png")">
+                    <div class="container">
+                        <h4><b>John Doe</b></h4>
+                        <p>Architect & Engineer</p>
+                    </div>
+                </div>
+            }
+        </div>
 
         <button class="fab fab-calm"><i class="fa fa-home"></i>+</button>
 
